@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 26 2025 г., 08:19
+-- Время создания: Дек 05 2025 г., 07:18
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.1.25
 
@@ -34,7 +34,7 @@ CREATE TABLE `abonents` (
   `patronym` varchar(100) NOT NULL,
   `birth_date` date NOT NULL,
   `division_id` int(11) DEFAULT NULL,
-  `phone` int(11) NOT NULL
+  `phone` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -42,7 +42,8 @@ CREATE TABLE `abonents` (
 --
 
 INSERT INTO `abonents` (`id`, `surname`, `name`, `patronym`, `birth_date`, `division_id`, `phone`) VALUES
-(13, 'Сергеев', 'Сергей', 'Сергеевич', '2000-01-01', 21, 2147483647);
+(43, 'Сергеев', 'Сергей', 'Сергеевич', '2001-03-03', 14, '79009627758'),
+(46, 'Харлампьева', 'Вилена', 'Константиновна', '2001-03-03', 12, '9627372258');
 
 -- --------------------------------------------------------
 
@@ -62,11 +63,7 @@ CREATE TABLE `divisions` (
 
 INSERT INTO `divisions` (`id`, `division_name`, `division_type`) VALUES
 (12, 'Свободу бобрам', 'Отдел по борьбе за свободу'),
-(14, 'Центр тестирования', 'Отдел разработки'),
-(21, 'Сборочный цех', 'Производственный отдел'),
-(26, 'Подразделение', 'Вид подразделения'),
-(27, 'Название подразделения', 'Вид подразделения'),
-(28, 'Сборочный цех', 'Отдел разработки');
+(14, 'Центр тестирования', 'Отдел разработки');
 
 -- --------------------------------------------------------
 
@@ -96,10 +93,17 @@ INSERT INTO `posts` (`id`, `title`, `text`) VALUES
 
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
-  `room_number` int(11) NOT NULL,
+  `room_number` varchar(255) NOT NULL,
   `room_type` varchar(255) NOT NULL,
   `division_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `rooms`
+--
+
+INSERT INTO `rooms` (`id`, `room_number`, `room_type`, `division_id`) VALUES
+(4, '100B', 'Кабинет', 14);
 
 -- --------------------------------------------------------
 
@@ -112,7 +116,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` int(4) NOT NULL DEFAULT 1
+  `role` varchar(50) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -120,11 +124,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `login`, `password`, `role`) VALUES
-(2, 'User1', 'UserLogin', 'd1a5ff8dbeedaa3406368724ebbd3cb0', 1),
-(14, 'Алексей', 'AlexLogin', '8068c76c7376bc08e2836ab26359d4a4', 1),
-(16, 'Admin', 'AdminLogin', '8068c76c7376bc08e2836ab26359d4a4', 3),
-(21, 'Алексей', 'afaf', 'aaad1fe5ee4c7125dda360ff6c8209a2', 1),
-(23, 'User', 'Login', '9c6aebdb1ff352eda04bd28bf4e4cc61', 1);
+(16, 'Admin', 'AdminLogin', '8068c76c7376bc08e2836ab26359d4a4', 'admin');
 
 --
 -- Индексы сохранённых таблиц
@@ -171,13 +171,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `abonents`
 --
 ALTER TABLE `abonents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT для таблицы `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT для таблицы `posts`
@@ -189,13 +189,13 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT для таблицы `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
